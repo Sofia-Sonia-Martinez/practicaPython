@@ -1,10 +1,5 @@
 from behave import *
-class Pokemon:
-           
-    def hablar(self, name, abiliti):
-        return [{"name": "ditto","abiliti": "limber"}];
-
-
+from src.pokemon_service import Pokemon
 @given(u'el "pokemon" fue elegido')
 def step_impl(context):
     context.service = Pokemon()
