@@ -6,7 +6,7 @@ class PokemonServiceApiAgent(PokemonApiInterface):
     
     def find_pokemon(self, name):
         self.name = name
-        response = requests.get('https://pokeapi.co/api/v2/pokemon/ditto').json()
+        response = requests.get(f'https://pokeapi.co/api/v2/pokemon/{self.name}').json()
         abilities = response["abilities"]
         ability=[]
         for ability_info in abilities:
