@@ -3,7 +3,6 @@ class PokemonService:
     def __init__ (self, agent):
         self.agent = agent
 
-    def hablar(self, name, abiliti):
+    def hablar(self, name):
         self.name=name
-        self.abiliti=abiliti
-        return self.agent.find_pokemon(self.name,self.abiliti)
+        return self.agent.find_pokemon(self.name)
