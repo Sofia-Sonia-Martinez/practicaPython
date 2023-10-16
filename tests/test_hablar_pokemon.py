@@ -8,44 +8,20 @@ from tests.factory.pokemon_factory import *
 
 class TestPokemonService:
     def test_pokemon_should_be_define(self):
-        pokemon_service = PokemonService(PokemonServiceApiAgent()) 
+        pokemon_service = PokemonService(FakePokemonServiceApiAgent()) 
         assert type(pokemon_service) is PokemonService
 
     def test_pokemon_should_have_method_hablar(self):
-        pokemon_service = PokemonFactory(PokemonServiceApiAgent()).build()
-        assert type(pokemon_service.hablar("ditto")) is tuple 
+        pokemon_service = PokemonFactory(FakePokemonServiceApiAgent()).build()
+        instance=pokemon_service.hablar("ditto")
+        assert isinstance(instance,dict)
 
-class TestAgentService:
-    def test_should_return_valid_json_name_abiliti(self) :
-        agent=PokemonServiceApiAgent()
-        book_service=PokemonFactory(agent).build()
-        result=book_service.hablar("ditto")
-        assert len(result) > 0
-
-    def test_should_return_valid_value_for_given_name(self) :
-        agent=PokemonServiceApiAgent()
-        pokemon_service=PokemonFactory(agent).build()
-        result=pokemon_service.hablar("ditto")
-        assert type(result) is tuple
-
-    def test_request_should_return_valid_response(self) :
-        agent = PokemonServiceApiAgent()
-        response = agent.make_request("ditto")
-        assert type(response) is Response
-
-    def test_should_parse_response_to_json(self) :
-        agent = PokemonServiceApiAgent()
-        response = agent.make_request("ditto")
-        parsed_response = agent.parsed_json(response)
-        assert type(parsed_response) is dict
-       
     def test_should_pick_pokemon_and_search_abilities(self):
-        agent = PokemonServiceApiAgent()
-        response = agent.make_request("ditto")
-        parsed_response = agent.parsed_json(response)
-        abilities = agent.search_abilities(parsed_response)
-        assert type(abilities) is list
+        pokemon_service = PokemonService(FakePokemonServiceApiAgent())
         
+        abilities = pokemon_service.search_abilities("ditto")
+        assert isinstance(abilities,tuple)
+
 def test_pokemon_factory_should_receive_agent_as_parameter_or_implement_fake_agent():
     pokemon_factory = PokemonFactory().build()
     assert type(pokemon_factory) is PokemonService
